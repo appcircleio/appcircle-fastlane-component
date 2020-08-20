@@ -26,10 +26,19 @@ def runCommand(command)
 	end
 end
 
-runCommand("gem install bundler")
-
 Dir.chdir("#{ac_working_dir}")
-runCommand("bundle install")
-runCommand("bundle exec fastlane #{ac_fastlane_lane}")
+
+if File.file?("Gemfile")
+	puts "Gemfile exists in working directory."
+	runCommand("gem install bundler")
+	runCommand("bundle install")
+	runCommand("bundle exec fastlane --version")
+	runCommand("bundle exec fastlane #{ac_fastlane_lane}")
+else
+	puts "Gemfile doesn't exist in working directory."
+	runCommand("gem install fastlane --no-document")
+	runCommand("fastlane --version")
+	runCommand("fastlane android test")
+end
 
 exit 0
