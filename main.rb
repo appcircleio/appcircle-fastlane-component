@@ -1,4 +1,5 @@
 require 'open3'
+require 'os'
 
 def get_env_variable(key)
 	return (ENV[key] == nil || ENV[key] == "") ? nil : ENV[key]
@@ -30,15 +31,23 @@ Dir.chdir("#{ac_working_dir}")
 
 if File.file?("Gemfile")
 	puts "Gemfile exists in working directory."
-	runCommand("gem install bundler")
+	if OS.mac?
+		runCommand("sudo gem install bundler")
+	else
+		runCommand("gem install bundler")
+	end
 	runCommand("bundle install")
 	runCommand("bundle exec fastlane --version")
 	runCommand("bundle exec fastlane #{ac_fastlane_lane}")
 else
 	puts "Gemfile doesn't exist in working directory."
-	runCommand("gem install fastlane --no-document")
+	if OS.mac?
+		runCommand("sudo gem install fastlane -NV")
+	else
+		runCommand("gem install fastlane -NV")
+	end
 	runCommand("fastlane --version")
-	runCommand("fastlane android test")
+	runCommand("fastlane #{ac_fastlane_lane}")
 end
 
 exit 0
