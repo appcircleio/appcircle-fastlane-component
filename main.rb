@@ -47,7 +47,7 @@ else
 		runCommand("gem install fastlane -NV")
 	end
 	runCommand("fastlane --version")
-	runCommand("fastlane #{ac_fastlane_lane}")
+	runCommand("fastlane #{ac_fastlane_lane} --verbose")
 end
 
 exit 0
