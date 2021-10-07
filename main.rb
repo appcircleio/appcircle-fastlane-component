@@ -38,7 +38,7 @@ if File.file?("Gemfile")
 	end
 	runCommand("bundle install")
 	runCommand("bundle exec fastlane --version")
-	runCommand("bundle exec fastlane #{ac_fastlane_lane}")
+	runCommand("bundle exec fastlane #{ac_fastlane_lane} --verbose")
 else
 	puts "Gemfile doesn't exist in working directory."
 	if OS.mac?
