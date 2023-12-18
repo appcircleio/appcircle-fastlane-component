@@ -33,12 +33,12 @@ if File.file?("Gemfile")
 	puts "Gemfile exists in working directory."
 	if OS.mac?
 		if `which rbenv`.empty?
-			runCommand("sudo gem install bundler")
+			runCommand("sudo gem install bundler -v 2.4.22")
 		else
-			runCommand("gem install bundler")
+			runCommand("gem install bundler -v 2.4.22")
 		end
 	else
-		runCommand("gem install bundler")
+		runCommand("gem install bundler -v 2.4.22")
 	end
 	runCommand("bundle install")
 	runCommand("bundle exec fastlane --version")
