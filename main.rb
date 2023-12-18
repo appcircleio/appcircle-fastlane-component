@@ -31,15 +31,7 @@ Dir.chdir("#{ac_working_dir}")
 
 if File.file?("Gemfile")
 	puts "Gemfile exists in working directory."
-	if OS.mac?
-		if `which rbenv`.empty?
-			runCommand("sudo gem install bundler")
-		else
-			runCommand("gem install bundler")
-		end
-	else
-		runCommand("gem install bundler")
-	end
+	runCommand('gem install bundler -v 2.4.22')
 	runCommand("bundle install")
 	runCommand("bundle exec fastlane --version")
 	runCommand("bundle exec fastlane #{ac_fastlane_lane} --verbose")
