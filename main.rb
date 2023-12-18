@@ -7,6 +7,7 @@ end
 
 ac_fastlane_lane = get_env_variable("AC_FASTLANE_LANE") || abort('Missing fastlane lane parameter.')
 ac_working_dir = get_env_variable("AC_FASTLANE_DIR") || abort('Missing fastlane directory parameter.')
+bundler_version = "-v 2.4.22"
 
 def runCommand(command)
 	puts "@@[command] #{command}"
@@ -33,12 +34,12 @@ if File.file?("Gemfile")
 	puts "Gemfile exists in working directory."
 	if OS.mac?
 		if `which rbenv`.empty?
-			runCommand("sudo gem install bundler -v 2.4.22")
+			runCommand("sudo gem install bundler #{bundler_version}")
 		else
-			runCommand("gem install bundler -v 2.4.22")
+			runCommand("gem install bundler #{bundler_version}")
 		end
 	else
-		runCommand("gem install bundler -v 2.4.22")
+		runCommand("gem install bundler #{bundler_version}")
 	end
 	runCommand("bundle install")
 	runCommand("bundle exec fastlane --version")
